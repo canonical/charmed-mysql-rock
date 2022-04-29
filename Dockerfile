@@ -12,4 +12,4 @@ RUN set -eux && DEBIAN_FRONTEND=noninteractive \
     apt-get install -y mysql-shell && \
     rm -rf /var/lib/apt/lists/*
 
-EXPOSE 3306 33060
+EXPOSE 3306 33060 33061
