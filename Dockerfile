@@ -1,6 +1,6 @@
-FROM ubuntu/mysql:8.0-22.04_beta
+FROM ubuntu/mysql:8.0-22.04
 
-ARG CONFIG_VERSION="0.8.22-1"
+ARG CONFIG_VERSION="0.8.23-1"
 
 RUN set -eux && DEBIAN_FRONTEND=noninteractive \
 	apt-get update && \
