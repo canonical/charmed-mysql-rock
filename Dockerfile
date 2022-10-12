@@ -1,4 +1,4 @@
-FROM ubuntu/mysql:8.0-22.04
+FROM ubuntu/mysql:8.0-22.04_beta
 
 ARG CONFIG_VERSION="0.8.23-1"
 
