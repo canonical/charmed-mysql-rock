@@ -1,0 +1,25 @@
+name: Build
+
+on:
+  workflow_call:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Setup LXD
+        uses: canonical/setup-lxd@main
+      - name: Install rockcraft
+        run: |
+          sudo snap install --classic --channel edge rockcraft
+      - name: Build ROCK
+        run: rockcraft pack --verbose
+
+      - name: Upload locally built ROCK artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: mysql-server-rock
+          path: "mysql-server_*.rock"
