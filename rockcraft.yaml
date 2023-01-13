@@ -31,14 +31,15 @@ parts:
                 -O /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
             dpkg -i /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
             apt-get update
-    mysql-deb:
+    mysql:
         plugin: nil
         after: [mysql-repo]
-        override-stage: |
-            apt install -y \
-              mysql-shell \
-              mysql-server-8.0 \
-              util-linux
+        stage-packages:
+            - mysql-shell
+            - mysql-server-8.0
+            - util-linux
+        stage-snaps:
+            - xtrabackup
     non-root-user:
         plugin: nil
         after: [mysql-deb]
