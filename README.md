@@ -9,7 +9,7 @@ The steps outlined below are based on the assumption that you are building the R
 ### Clone Repository
 ```bash
 git clone git@github.com:canonical/charmed-mysql-container.git
-cd mongodb-rock
+cd charmed-mysql-container
 ```
 ### Installing Prerequisites
 ```bash
