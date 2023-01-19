@@ -1,6 +1,6 @@
 name: charmed-mysql # the name of your ROCK
 base: ubuntu:22.04 # the base environment for this ROCK
-version: '0.8.22-1' # just for humans. Semantic versioning is recommended
+version: '8.0.31' # just for humans. Semantic versioning is recommended
 summary: Charmed MySQL ROCK OCI # 79 char long summary
 description: |
     MySQL built from the official ubuntu MySQL package 
@@ -26,9 +26,10 @@ parts:
         override-pull: |
             apt-get update
             apt-get install -y wget lsb-release gnupg
-            wget -q https://dev.mysql.com/get/mysql-apt-config_0.8.22-1_all.deb \
-                -O /tmp/mysql-apt-config_0.8.22-1_all.deb
-            dpkg -i /tmp/mysql-apt-config_0.8.22-1_all.deb
+            export MYSQL_APT_CONFIG=0.8.22-1
+            wget -q https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb \
+                -O /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
+            dpkg -i /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
             apt-get update
     mysql-deb:
         plugin: nil
