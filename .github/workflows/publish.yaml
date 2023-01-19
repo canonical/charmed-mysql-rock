@@ -44,5 +44,5 @@ jobs:
             --insecure-policy \
             copy \
             oci-archive:"mysql-server_${version}_amd64.rock" \
-            docker-daemon:"dataplatformoci/mysql-server:${version}"
-          docker push "dataplatformoci/mysql-server:${version}"
+            docker-daemon:"dataplatformoci/charmed-mysql-server:${version}"
+          docker push "dataplatformoci/charmed-mysql-server:${version}"
