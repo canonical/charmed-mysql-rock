@@ -1,0 +1,48 @@
+name: charmed-mysql # the name of your ROCK
+base: ubuntu:22.04 # the base environment for this ROCK
+version: '8.0.31' # just for humans. Semantic versioning is recommended
+summary: Charmed MySQL ROCK OCI # 79 char long summary
+description: |
+    MySQL built from the official ubuntu MySQL package 
+    from the Ubuntu repository and further installs 
+    mysql-shell.  For more information on ROCKs, visit 
+    the https://github.com/canonical/rockcraft.
+license: Apache-2.0 # your application's SPDX license
+cmd: 
+    - /usr/bin/setpriv
+    - --clear-groups
+    - --reuid
+    - mysql
+    - --regid
+    - mysql
+    - -- 
+    - /usr/sbin/mysqld
+platforms: # The platforms this ROCK should be built on and run on
+    amd64:
+
+parts:
+    mysql-repo:
+        plugin: nil
+        override-pull: |
+            apt-get update
+            apt-get install -y wget lsb-release gnupg
+            export MYSQL_APT_CONFIG=0.8.23-1
+            wget -q https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb \
+                -O /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
+            dpkg -i /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
+            apt-get update
+    mysql-deb:
+        plugin: nil
+        after: [mysql-repo]
+        override-stage: |
+            apt install -y \
+              mysql-shell \
+              mysql-server-8.0 \
+              util-linux
+    non-root-user:
+        plugin: nil
+        after: [mysql-deb]
+        overlay-script: |
+            # Create a user in the $CRAFT_OVERLAY chroot
+            groupadd -R $CRAFT_OVERLAY -g 1000 mysql
+            useradd -R $CRAFT_OVERLAY -M -r -g mysql -u 1000 mysql
