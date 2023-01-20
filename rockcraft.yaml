@@ -26,7 +26,7 @@ parts:
         override-pull: |
             apt-get update
             apt-get install -y wget lsb-release gnupg
-            export MYSQL_APT_CONFIG=0.8.22-1
+            export MYSQL_APT_CONFIG=0.8.23-1
             wget -q https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb \
                 -O /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
             dpkg -i /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
@@ -34,10 +34,11 @@ parts:
     mysql-deb:
         plugin: nil
         after: [mysql-repo]
-        stage-packages:
-            - mysql-shell
-            - mysql-server-8.0
-            - util-linux
+        override-stage: |
+            apt install -y \
+              mysql-shell \
+              mysql-server-8.0 \
+              util-linux
     non-root-user:
         plugin: nil
         after: [mysql-deb]
