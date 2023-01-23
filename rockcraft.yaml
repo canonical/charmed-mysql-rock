@@ -24,9 +24,10 @@ parts:
     mysql-repo:
         plugin: nil
         override-pull: |
+            export DEBIAN_FRONTEND=noninteractive
+            export MYSQL_APT_CONFIG=0.8.23-1
             apt-get update
             apt-get install -y wget lsb-release gnupg
-            export MYSQL_APT_CONFIG=0.8.23-1
             wget -q https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb \
                 -O /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
             dpkg -i /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
@@ -39,7 +40,7 @@ parts:
             - mysql-server-8.0
             - util-linux
         stage-snaps:
-            - xtrabackup
+            - xtrabackup/latest/edge
     non-root-user:
         plugin: nil
         after: [mysql]
