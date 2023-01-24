@@ -21,26 +21,14 @@ platforms: # The platforms this ROCK should be built on and run on
     amd64:
 
 parts:
-    mysql-repo:
-        plugin: nil
-        override-pull: |
-            export DEBIAN_FRONTEND=noninteractive
-            export MYSQL_APT_CONFIG=0.8.23-1
-            apt-get update
-            apt-get install -y wget lsb-release gnupg
-            wget -q https://dev.mysql.com/get/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb \
-                -O /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
-            dpkg -i /tmp/mysql-apt-config_${MYSQL_APT_CONFIG}_all.deb
-            apt-get update
     mysql:
         plugin: nil
-        after: [mysql-repo]
         stage-packages:
-            - mysql-shell
             - mysql-server-8.0
             - util-linux
         stage-snaps:
             - xtrabackup/latest/edge
+            - mysql-shell
     non-root-user:
         plugin: nil
         after: [mysql]
