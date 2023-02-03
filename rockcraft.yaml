@@ -16,7 +16,7 @@ cmd:
     - --regid
     - mysql
     - -- 
-    - /usr/sbin/mysqld
+    - start_mysql.sh
 platforms: # The platforms this ROCK should be built on and run on
     amd64:
 
@@ -36,3 +36,6 @@ parts:
             # Create a user in the $CRAFT_OVERLAY chroot
             groupadd -R $CRAFT_OVERLAY -g 1000 mysql
             useradd -R $CRAFT_OVERLAY -M -r -g mysql -u 1000 mysql
+    wrapper:
+        plugin: dump
+        source: local
