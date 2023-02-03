@@ -8,8 +8,20 @@ if [ ! -f "${CONFIG_DIR}/initialized" ]; then
 
         mkdir /var/lib/mysql-files
         mkdir /var/run/mysqld
+
+        # This is only needed until this bug is resolved with pebble
+        mkdir /home/mysql
+        array=( .bash_logout .bashrc .profile )
+        for i in "${array[@]}"
+        do
+            cp /etc/skel/"$i" /home/mysql
+            chown mysql:mysql /home/mysql/"$i"
+        done
+
         chown -R mysql:mysql /var/lib/mysql*
         chown -R mysql:mysql /var/run/mysqld
+
+        
     
         touch $CONFIG_DIR/initialized
 fi
