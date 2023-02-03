@@ -56,6 +56,7 @@ parts:
             craftctl default
             mkdir -p $CRAFT_STAGE/var/lib/mysql
             ln -s /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libnuma.so.1 /usr/lib/x86_64-linux-gnu/libnuma.so.1
+            ln -s /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libaio.so.1 /usr/lib/x86_64-linux-gnu/libaio.so.1
             mysqld --initialize
             cp -r /varlib/mysql $CRAFT_STAGE/var/lib
             chown 1000:1000 $CRAFT_STAGE/var/lib/mysql
