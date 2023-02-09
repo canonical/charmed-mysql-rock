@@ -57,9 +57,15 @@ parts:
             mkdir -p $CRAFT_STAGE/var/lib/mysql
             ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libnuma.so.1 /usr/lib/x86_64-linux-gnu/libnuma.so.1
             ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libaio.so.1 /usr/lib/x86_64-linux-gnu/libaio.so.1
+            rm -rf /var/lib/mysql/
             mysqld --initialize
             cp -r /var/lib/mysql $CRAFT_STAGE/var/lib
             chown 1000:1000 $CRAFT_STAGE/var/lib/mysql
+        override-prime: |
+            craftctl default
+            mv -f $CRAFT_PRIME/etc/mysql/mysql.cnf $CRAFT_PRIME/etc/mysql/my.cnf
+            mkdir -p $CRAFT_PRIME/var/log/mysql
+            chown -R 1000:1000 $CRAFT_PRIME/var/log/mysql
     non-root-user:
         plugin: nil
         after: [packages-deb]
@@ -82,3 +88,4 @@ parts:
             mkdir -p $CRAFT_PRIME/var/run/mysqld
             chown -R 1000:1000 $CRAFT_PRIME/var/lib/mysql*
             chown -R 1000:1000 $CRAFT_PRIME/var/run/mysqld
+            chown -R 1000:1000 $CRAFT_PRIME/etc/mysql
