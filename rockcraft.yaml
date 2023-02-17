@@ -21,37 +21,12 @@ platforms: # The platforms this ROCK should be built on and run on
     amd64:
 
 parts:
-    mysql-repo:
+    charmed-mysql:
         plugin: nil
-        override-pull: |
-            export DEBIAN_FRONTEND=noninteractive
-            export CONFIG_VERSION="0.8.22-1"
-            apt-get update
-            apt-get install -y wget lsb-release gnupg
-            wget -q https://dev.mysql.com/get/mysql-apt-config_${CONFIG_VERSION}_all.deb \
-                -O /tmp/mysql-apt-config_${CONFIG_VERSION}_all.deb
-            dpkg -i /tmp/mysql-apt-config_${CONFIG_VERSION}_all.deb
-            apt-get update
-    percona-repo:
-        plugin: nil
-        override-pull: |
-            export DEBIAN_FRONTEND=noninteractive
-            apt-get update
-            apt-get install -y wget lsb-release
-            wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
-            dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
-            apt-get update
-    packages-deb:
-        plugin: nil
-        after:
-            - mysql-repo
-            - percona-repo
         stage-packages:
-            - mysql-server
-            - mysql-router
-            - mysql-shell
-            - percona-xtrabackup-80
             - util-linux
+        stage-snaps:
+            - charmed-mysql/8.0/edge
         override-stage: |
             craftctl default
             mkdir -p $CRAFT_STAGE/var/lib/mysql
@@ -68,7 +43,7 @@ parts:
             chown -R 1000:1000 $CRAFT_PRIME/var/log/mysql
     non-root-user:
         plugin: nil
-        after: [packages-deb]
+        after: [charmed-mysql]
         overlay-script: |
             # Create a user in the $CRAFT_OVERLAY chroot
             groupadd -R $CRAFT_OVERLAY -g 1000 mysql
