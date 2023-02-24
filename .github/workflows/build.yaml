@@ -1,8 +1,7 @@
-name: Build
+name: Build ROCK
 
 on:
   workflow_call:
-  pull_request:
 
 jobs:
   build:
@@ -21,5 +20,5 @@ jobs:
       - name: Upload locally built ROCK artifact
         uses: actions/upload-artifact@v3
         with:
-          name: mysql-server-rock
-          path: "mysql-server_*.rock"
+          name: charmed-mysql-rock
+          path: "charmed-mysql_*.rock"

@@ -3,9 +3,9 @@ base: ubuntu:22.04 # the base environment for this ROCK
 version: '8.0.31' # just for humans. Semantic versioning is recommended
 summary: Charmed MySQL ROCK OCI # 79 char long summary
 description: |
-    MySQL built from the official MySQL package 
-    from the MySQL repository and installs 
-    mysql-shell.  For more information on ROCKs, visit 
+    MySQL built from the official MySQL package
+    from the MySQL repository and installs
+    mysql-shell.  For more information on ROCKs, visit
     the https://github.com/canonical/rockcraft.
 license: Apache-2.0 # your application's SPDX license
 cmd:
@@ -30,8 +30,10 @@ parts:
         override-stage: |
             craftctl default
             mkdir -p $CRAFT_STAGE/var/lib/mysql
-            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libnuma.so.1 /usr/lib/x86_64-linux-gnu/libnuma.so.1
-            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libaio.so.1 /usr/lib/x86_64-linux-gnu/libaio.so.1
+            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libnuma.so.1 \
+                /usr/lib/x86_64-linux-gnu/libnuma.so.1
+            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libaio.so.1 \
+                /usr/lib/x86_64-linux-gnu/libaio.so.1
             rm -rf /var/lib/mysql/
             mysqld --initialize
             cp -r /var/lib/mysql $CRAFT_STAGE/var/lib
