@@ -29,15 +29,18 @@ parts:
             - charmed-mysql/8.0/edge
         override-stage: |
             craftctl default
-            SNAP=$CRAFT_STAGE
-            SNAP_COMMON=$CRAFT_STAGE/etc
-            SNAP_DATA=$CRAFT_STAGE/etc
-            mkdir -p $SNAP_COMMON
-            mkdir -p $SNAP_DATA
+            mkdir -p $CRAFT_STAGE/var/lib/mysql
             ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libnuma.so.1 /usr/lib/x86_64-linux-gnu/libnuma.so.1
             ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libaio.so.1 /usr/lib/x86_64-linux-gnu/libaio.so.1
-            mkdir -p $CRAFT_STAGE/var/lib/mysql
-            $CRAFT_STAGE/snap.charmed-mysql/hooks/install
+            rm -rf /var/lib/mysql/
+            mysqld --initialize
+            cp -r /var/lib/mysql $CRAFT_STAGE/var/lib
+            chown 584788:584788 $CRAFT_STAGE/var/lib/mysql
+        override-prime: |
+            craftctl default
+            mv -f $CRAFT_PRIME/etc/mysql/mysql.cnf $CRAFT_PRIME/etc/mysql/my.cnf
+            mkdir -p $CRAFT_PRIME/var/log/mysql
+            chown -R 584788:584788 $CRAFT_PRIME/var/log/mysql
     non-root-user:
         plugin: nil
         after: [charmed-mysql]
