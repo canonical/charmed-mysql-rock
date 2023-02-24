@@ -30,9 +30,9 @@ parts:
         override-stage: |
             craftctl default
             mkdir -p $CRAFT_STAGE/var/lib/mysql
-            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libnuma.so.1 \
+            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libnuma.so.1 \
                 /usr/lib/x86_64-linux-gnu/libnuma.so.1
-            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libaio.so.1 \
+            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libaio.so.1 \
                 /usr/lib/x86_64-linux-gnu/libaio.so.1
             rm -rf /var/lib/mysql/
             mysqld --initialize
