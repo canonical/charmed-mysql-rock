@@ -3,9 +3,9 @@ base: ubuntu:22.04 # the base environment for this ROCK
 version: '8.0.31' # just for humans. Semantic versioning is recommended
 summary: Charmed MySQL ROCK OCI # 79 char long summary
 description: |
-    MySQL built from the official MySQL package 
-    from the MySQL repository and installs 
-    mysql-shell.  For more information on ROCKs, visit 
+    MySQL built from the official MySQL package
+    from the MySQL repository and installs
+    mysql-shell.  For more information on ROCKs, visit
     the https://github.com/canonical/rockcraft.
 license: Apache-2.0 # your application's SPDX license
 cmd:
@@ -21,58 +21,35 @@ platforms: # The platforms this ROCK should be built on and run on
     amd64:
 
 parts:
-    mysql-repo:
+    charmed-mysql:
         plugin: nil
-        override-pull: |
-            export DEBIAN_FRONTEND=noninteractive
-            export CONFIG_VERSION="0.8.22-1"
-            apt-get update
-            apt-get install -y wget lsb-release gnupg
-            wget -q https://dev.mysql.com/get/mysql-apt-config_${CONFIG_VERSION}_all.deb \
-                -O /tmp/mysql-apt-config_${CONFIG_VERSION}_all.deb
-            dpkg -i /tmp/mysql-apt-config_${CONFIG_VERSION}_all.deb
-            apt-get update
-    percona-repo:
-        plugin: nil
-        override-pull: |
-            export DEBIAN_FRONTEND=noninteractive
-            apt-get update
-            apt-get install -y wget lsb-release
-            wget https://repo.percona.com/apt/percona-release_latest.$(lsb_release -sc)_all.deb
-            dpkg -i percona-release_latest.$(lsb_release -sc)_all.deb
-            apt-get update
-    packages-deb:
-        plugin: nil
-        after:
-            - mysql-repo
-            - percona-repo
         stage-packages:
-            - mysql-server
-            - mysql-router
-            - mysql-shell
-            - percona-xtrabackup-80
             - util-linux
+        stage-snaps:
+            - charmed-mysql/8.0/edge
         override-stage: |
             craftctl default
             mkdir -p $CRAFT_STAGE/var/lib/mysql
-            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libnuma.so.1 /usr/lib/x86_64-linux-gnu/libnuma.so.1
-            ln -sf /root/parts/packages-deb/install/usr/lib/x86_64-linux-gnu/libaio.so.1 /usr/lib/x86_64-linux-gnu/libaio.so.1
+            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libnuma.so.1 \
+                /usr/lib/x86_64-linux-gnu/libnuma.so.1
+            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libaio.so.1 \
+                /usr/lib/x86_64-linux-gnu/libaio.so.1
             rm -rf /var/lib/mysql/
             mysqld --initialize
             cp -r /var/lib/mysql $CRAFT_STAGE/var/lib
-            chown 1000:1000 $CRAFT_STAGE/var/lib/mysql
+            chown 584788:584788 $CRAFT_STAGE/var/lib/mysql
         override-prime: |
             craftctl default
             mv -f $CRAFT_PRIME/etc/mysql/mysql.cnf $CRAFT_PRIME/etc/mysql/my.cnf
             mkdir -p $CRAFT_PRIME/var/log/mysql
-            chown -R 1000:1000 $CRAFT_PRIME/var/log/mysql
+            chown -R 584788:584788 $CRAFT_PRIME/var/log/mysql
     non-root-user:
         plugin: nil
-        after: [packages-deb]
+        after: [charmed-mysql]
         overlay-script: |
             # Create a user in the $CRAFT_OVERLAY chroot
-            groupadd -R $CRAFT_OVERLAY -g 1000 mysql
-            useradd -R $CRAFT_OVERLAY -M -r -g mysql -u 1000 mysql
+            groupadd -R $CRAFT_OVERLAY -g 584788 mysql
+            useradd -R $CRAFT_OVERLAY -M -r -g mysql -u 584788 mysql
         override-prime: |
             craftctl default
             # This is only needed until this bug is resolved with pebble
@@ -82,10 +59,10 @@ parts:
             for i in "${array[@]}"
             do
                 cp /etc/skel/"$i" $CRAFT_PRIME/home/mysql
-                chown 1000:1000 $CRAFT_PRIME/home/mysql/"$i"
+                chown 584788 $CRAFT_PRIME/home/mysql/"$i"
             done
             mkdir -p $CRAFT_PRIME/var/lib/mysql-files
             mkdir -p $CRAFT_PRIME/var/run/mysqld
-            chown -R 1000:1000 $CRAFT_PRIME/var/lib/mysql*
-            chown -R 1000:1000 $CRAFT_PRIME/var/run/mysqld
-            chown -R 1000:1000 $CRAFT_PRIME/etc/mysql
+            chown -R 584788 $CRAFT_PRIME/var/lib/mysql*
+            chown -R 584788 $CRAFT_PRIME/var/run/mysqld
+            chown -R 584788 $CRAFT_PRIME/etc/mysql
