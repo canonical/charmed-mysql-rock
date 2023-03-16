@@ -34,4 +34,4 @@ docker run --rm -it <username>/mysql-server:<tag>
 ## License
 The MySQL Server ROCK is free software, distributed under the Apache
 Software License, version 2.0. See
-[LICENSE](https://github.com/canonical/charmed-mysql-container/blob/8.0-20.04/LICENSE)
+[LICENSE](https://github.com/canonical/charmed-mysql-container/blob/8.0-22.04/licenses)
