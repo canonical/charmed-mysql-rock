@@ -38,4 +38,4 @@ jobs:
       - name: Install tox
         run: python3 -m pip install tox
       - name: Integration Tests
-        run: sg microk8s -c "tox -e ${{ matrix.env }}"
+        run: sg microk8s -c "tox run -e ${{ matrix.env }}"
