@@ -25,6 +25,12 @@ parts:
         plugin: nil
         stage-packages:
             - util-linux
+            - libssh-4
+            - libbrotli1
+            - libexpat1
+            - python3
+        overlay-packages:
+            - ca-certificates
         stage-snaps:
             - charmed-mysql/8.0/edge
         override-stage: |
