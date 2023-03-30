@@ -18,12 +18,18 @@ jobs:
         uses: actions/checkout@v3
       - name: Setup LXD
         uses: canonical/setup-lxd@main
-      - name: Install rockcraft
+      - name: Install dependencies
         run: |
+          sudo snap install yq
           sudo snap install --classic --channel edge rockcraft
       - name: Build ROCK
-        run: rockcraft pack --verbose
-
+        run: |
+          app_version=$(yq '.version' rockcraft.yaml)
+          version=$(yq '(.version|split("-"))[0]' rockcraft.yaml)
+          base=$(yq '(.base|split(":"))[1]' rockcraft.yaml)
+          tag=${version}-${base}_edge
+          sed -i "s/${app_version}/${tag}/g" rockcraft.yaml
+          rockcraft pack
       - name: Upload locally built ROCK artifact
         uses: actions/upload-artifact@v3
         with:
