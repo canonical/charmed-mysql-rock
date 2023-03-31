@@ -1,0 +1,29 @@
+name: Check Version
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  check-version:
+    runs-on: ubuntu-22.04
+    timeout-minutes: 15
+    steps:
+      - name: 'Foresight: Collect workflow telemetry'
+        uses: runforesight/foresight-workflow-kit-action@v1
+      - uses: actions/checkout@v3
+      - name: Install yq
+        run: sudo snap install yq
+      - name: Compare versions
+        run: |
+          APP=$(yq .name rockcraft.yaml)
+          ROCK_VERSION=$(yq .version rockcraft.yaml)
+          CHANNEL=$(yq ".parts.charmed-mysql.stage-snaps[0]" rockcraft.yaml \
+            | cut -c15-)
+          SNAP_VERSION=$(snap info $APP | grep $CHANNEL | awk -F ' ' \
+            '{print $2}')
+          if [ "$ROCK_VERSION" != "$SNAP_VERSION" ]; then
+              echo "VERSION MISMATCH DETECTED"
+              echo "Rock version: $ROCK_VERSION"
+              echo "SNAP version: $SNAP_VERSION"
+              exit 1
+          fi
