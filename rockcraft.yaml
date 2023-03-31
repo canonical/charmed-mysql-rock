@@ -37,23 +37,24 @@ parts:
         stage-snaps:
             - charmed-mysql/8.0/edge
         override-stage: |
+            LIB_DIR=$CRAFT_STAGE/usr/lib/x86_64-linux-gnu
             craftctl default
             mkdir -p $CRAFT_STAGE/var/lib/mysql
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libnuma.so.1 \
+            ln -sf $LIB_DIR/libnuma.so.1 \
                 /usr/lib/x86_64-linux-gnu/libnuma.so.1
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libaio.so.1 \
+            ln -sf $LIB_DIR/libaio.so.1 \
                 /usr/lib/x86_64-linux-gnu/libaio.so.1
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libicuuc.so.70 \
+            ln -sf $LIB_DIR/libicuuc.so.70 \
                 /usr/lib/x86_64-linux-gnu/libicuuc.so.70
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libicui18n.so.70 \
+            ln -sf $LIB_DIR/libicui18n.so.70 \
                 /usr/lib/x86_64-linux-gnu/libicui18n.so.70
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libevent_core-2.1.so.7 \
+            ln -sf $LIB_DIR/libevent_core-2.1.so.7 \
                 /usr/lib/x86_64-linux-gnu/libevent_core-2.1.so.7
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libevent_pthreads-2.1.so.7 \
+            ln -sf $LIB_DIR/libevent_pthreads-2.1.so.7 \
                 /usr/lib/x86_64-linux-gnu/libevent_pthreads-2.1.so.7
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libprotobuf-lite.so.23 \
+            ln -sf $LIB_DIR/libprotobuf-lite.so.23 \
                 /usr/lib/x86_64-linux-gnu/libprotobuf-lite.so.23
-            ln -sf $CRAFT_STAGE/usr/lib/x86_64-linux-gnu/libicudata.so.70 \
+            ln -sf $LIB_DIR/libicudata.so.70 \
                 /usr/lib/x86_64-linux-gnu/libicudata.so.70
             rm -rf /var/lib/mysql/
             mysqld --initialize
