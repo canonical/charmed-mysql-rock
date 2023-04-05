@@ -34,6 +34,7 @@ parts:
             - libexpat1
             - python3
             - ca-certificates
+            - libedit2
         stage-snaps:
             - charmed-mysql/8.0/edge
         override-stage: |
