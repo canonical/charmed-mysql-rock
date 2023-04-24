@@ -11,7 +11,7 @@ license: Apache-2.0 # your application's SPDX license
 services:
     mysqld:
         override: merge
-        command: /usr/sbin/mysqld
+        command: /usr/sbin/mysqld_safe
         user: mysql
         group: mysql
 platforms: # The platforms this ROCK should be built on and run on
