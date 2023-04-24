@@ -9,7 +9,7 @@ description: |
     the https://github.com/canonical/rockcraft.
 license: Apache-2.0 # your application's SPDX license
 services:
-    mysqld:
+    mysqld_safe:
         override: merge
         command: /usr/sbin/mysqld_safe
         user: mysql
