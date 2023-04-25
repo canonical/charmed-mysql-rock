@@ -86,6 +86,8 @@ parts:
             done
             mkdir -p $CRAFT_PRIME/var/lib/mysql-files
             mkdir -p $CRAFT_PRIME/var/run/mysqld
+            mkdir -p $CRAFT_PRIME/var/log/mysqlrouter
             chown -R 584788 $CRAFT_PRIME/var/lib/mysql*
             chown -R 584788 $CRAFT_PRIME/var/run/mysqld
             chown -R 584788 $CRAFT_PRIME/etc/mysql
+            chown -R 584788 $CRAFT_PRIME/var/log/mysqlrouter
