@@ -8,15 +8,6 @@ description: |
     mysql-shell.  For more information on ROCKs, visit
     the https://github.com/canonical/rockcraft.
 license: Apache-2.0 # your application's SPDX license
-cmd:
-    - /usr/bin/setpriv
-    - --clear-groups
-    - --reuid
-    - mysql
-    - --regid
-    - mysql
-    - --
-    - /usr/sbin/mysqld
 platforms: # The platforms this ROCK should be built on and run on
     amd64:
 
