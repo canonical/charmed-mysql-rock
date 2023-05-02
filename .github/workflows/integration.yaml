@@ -23,8 +23,6 @@ jobs:
           - integration-backups
       fail-fast: false
     steps:
-      - name: 'Foresight: Collect workflow telemetry'
-        uses: runforesight/foresight-workflow-kit-action@v1
       - name: Checkout repository
         uses: actions/checkout@v3
       - name: Setup operator environment
