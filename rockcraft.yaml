@@ -63,12 +63,9 @@ parts:
         overlay-script: |
             # Create a user in the $CRAFT_OVERLAY chroot
             groupadd -R $CRAFT_OVERLAY -g 584788 mysql
-            useradd -R $CRAFT_OVERLAY -M -r -g mysql -u 584788 mysql
+            useradd -R $CRAFT_OVERLAY -r -g mysql -u 584788 mysql
         override-prime: |
             craftctl default
-            # This is only needed until this bug is resolved with pebble
-            # https://github.com/canonical/pebble/issues/189
-            mkdir -p $CRAFT_PRIME/home/mysql
             array=( .bash_logout .bashrc .profile )
             for i in "${array[@]}"
             do
