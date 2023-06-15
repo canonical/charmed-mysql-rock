@@ -63,7 +63,7 @@ parts:
         overlay-script: |
             # Create a user in the $CRAFT_OVERLAY chroot
             groupadd -R $CRAFT_OVERLAY -g 584788 mysql
-            useradd -R $CRAFT_OVERLAY -m -r -g mysql -u 584788 mysql
+            useradd -R $CRAFT_OVERLAY --create-home -r -g mysql -u 584788 mysql
         override-prime: |
             craftctl default
             array=( .bash_logout .bashrc .profile )
