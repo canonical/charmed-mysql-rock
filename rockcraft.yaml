@@ -63,17 +63,13 @@ parts:
         overlay-script: |
             # Create a user in the $CRAFT_OVERLAY chroot
             groupadd -R $CRAFT_OVERLAY -g 584788 mysql
-            useradd -R $CRAFT_OVERLAY -M -r -g mysql -u 584788 mysql
+            useradd -R $CRAFT_OVERLAY --create-home -r -g mysql -u 584788 mysql
         override-prime: |
             craftctl default
-            # This is only needed until this bug is resolved with pebble
-            # https://github.com/canonical/pebble/issues/189
-            mkdir -p $CRAFT_PRIME/home/mysql
             array=( .bash_logout .bashrc .profile )
             for i in "${array[@]}"
             do
                 cp /etc/skel/"$i" $CRAFT_PRIME/home/mysql
-                chown 584788 $CRAFT_PRIME/home/mysql/"$i"
             done
             mkdir -p $CRAFT_PRIME/var/lib/mysql-files
             mkdir -p $CRAFT_PRIME/var/run/mysqld
@@ -82,8 +78,8 @@ parts:
             chown -R 584788 $CRAFT_PRIME/var/lib/mysql*
             chown -R 584788 $CRAFT_PRIME/var/run/mysqld
             chown -R 584788 $CRAFT_PRIME/etc/mysql
-            chown -R 584788 $CRAFT_PRIME/etc/mysqlrouter
-            chown -R 584788 $CRAFT_PRIME/var/log/mysqlrouter
+            chown -R 584788:584788 $CRAFT_PRIME/etc/mysqlrouter
+            chown -R 584788:584788 $CRAFT_PRIME/var/log/mysqlrouter
             # Generate dpkg.query
             mkdir -p $CRAFT_PRIME/usr/share/rocks
             echo "# os-release" > $CRAFT_PRIME/usr/share/rocks/dpkg.query
