@@ -1,6 +1,6 @@
 name: charmed-mysql # the name of your ROCK
 base: ubuntu:22.04 # the base environment for this ROCK
-version: '8.0.32-0' # just for humans. Semantic versioning is recommended
+version: '8.0.33-0' # just for humans. Semantic versioning is recommended
 summary: Charmed MySQL ROCK OCI # 79 char long summary
 description: |
     MySQL built from the official MySQL package
