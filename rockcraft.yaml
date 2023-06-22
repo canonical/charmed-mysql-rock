@@ -27,7 +27,6 @@ parts:
             - ca-certificates
             - libedit2
             # mysqlsh dependencies
-            # TODO: remove once added to mysql-shell PPA
             - python3-certifi
             - python3-yaml
         stage-snaps:
