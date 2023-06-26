@@ -26,6 +26,9 @@ parts:
             - python3
             - ca-certificates
             - libedit2
+            # mysqlsh dependencies
+            - python3-certifi
+            - python3-yaml
         stage-snaps:
             - charmed-mysql/8.0/edge
         override-stage: |
