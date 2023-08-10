@@ -1,6 +1,6 @@
 name: charmed-mysql # the name of your ROCK
 base: ubuntu:22.04 # the base environment for this ROCK
-version: '8.0.33-0' # just for humans. Semantic versioning is recommended
+version: '8.0.33' # just for humans. Semantic versioning is recommended
 summary: Charmed MySQL ROCK OCI # 79 char long summary
 description: |
     MySQL built from the official MySQL package
@@ -62,7 +62,8 @@ parts:
             chown -R 584788:584788 $CRAFT_PRIME/var/log/mysql
     non-root-user:
         plugin: nil
-        after: [charmed-mysql]
+        after:
+            - charmed-mysql
         overlay-script: |
             # Create a user in the $CRAFT_OVERLAY chroot
             groupadd -R $CRAFT_OVERLAY -g 584788 mysql
@@ -102,3 +103,11 @@ parts:
             dpkg-query -W -f "${dpkg_ops}\n" \
             --root=${CRAFT_PROJECT_DIR}/../parts/charmed-mysql/layer/ \
             >> $CRAFT_PRIME/usr/share/rocks/dpkg.query
+    rock-license:
+        plugin: dump
+        source: .
+        source-type: local
+        stage:
+            - licenses/LICENSE-rock
+        organize:
+            LICENSE: licenses/LICENSE-rock
