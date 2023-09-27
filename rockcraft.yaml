@@ -16,6 +16,7 @@ parts:
         plugin: nil
         overlay-packages:
             - util-linux
+            - logrotate
             - libssh-4
             - libbrotli1
             - libicu70
@@ -60,6 +61,8 @@ parts:
             mv -f $CRAFT_PRIME/etc/mysql/mysql.cnf $CRAFT_PRIME/etc/mysql/my.cnf
             mkdir -p $CRAFT_PRIME/var/log/mysql
             chown -R 584788:584788 $CRAFT_PRIME/var/log/mysql
+        organize:
+            usr/share/doc/logrotate/copyright: licenses/COPYRIGHT-logrotate
     non-root-user:
         plugin: nil
         after:
