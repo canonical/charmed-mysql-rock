@@ -18,7 +18,7 @@ jobs:
       - name: Set tag
         run: |
           version=$(yq '(.version|split("-"))[0]' rockcraft.yaml)
-          base=$(yq '(.base|split(":"))[1]' rockcraft.yaml)
+          base=$(yq '(.base|split("@"))[1]' rockcraft.yaml)
           echo "tag=${version}-${base}_edge" >> "$GITHUB_ENV"
       - uses: actions/download-artifact@v3
         with:

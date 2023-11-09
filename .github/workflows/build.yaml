@@ -25,10 +25,10 @@ jobs:
         run: |
           app_version=$(yq '.version' rockcraft.yaml)
           version=$(yq '(.version|split("-"))[0]' rockcraft.yaml)
-          base=$(yq '(.base|split(":"))[1]' rockcraft.yaml)
+          base=$(yq '(.base|split("@"))[1]' rockcraft.yaml)
           tag=${version}-${base}_edge
-          sed -i "s/${app_version}/${tag}/g" rockcraft.yaml
           rockcraft pack
+          mv charmed-mysql_${version}_amd64.rock charmed-mysql_${tag}_amd64.rock
       - name: Upload rockcraft logs
         if: ${{ failure() && steps.pack.outcome == 'failure' }}
         uses: actions/upload-artifact@v3

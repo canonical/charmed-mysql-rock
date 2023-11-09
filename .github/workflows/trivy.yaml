@@ -1,0 +1,48 @@
+name: trivy
+on:
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+jobs:
+  build:
+    uses: ./.github/workflows/build.yaml
+  scan:
+    name: Trivy scan
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Install skopeo
+        run: |
+          sudo snap install --devmode --channel edge skopeo
+      - name: Install yq
+        run: |
+          sudo snap install yq
+      - uses: actions/download-artifact@v3
+        with:
+          name: charmed-mysql-rock
+      - name: Import locally
+        run: |
+          app=$(yq .name rockcraft.yaml)
+          version=$(yq '(.version)' rockcraft.yaml)
+          base=$(yq '(.base|split("@"))[1]' rockcraft.yaml)
+          tag=${version}-${base}_edge
+
+          sudo skopeo --insecure-policy copy \
+            oci-archive:${app}_${tag}_amd64.rock \
+            docker-daemon:trivy/charmed-mysql:test
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'trivy/charmed-mysql:test'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
+          severity: 'MEDIUM,HIGH,CRITICAL'
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v2
+        if: always()
+        with:
+          sarif_file: 'trivy-results.sarif'
