@@ -26,7 +26,7 @@ jobs:
         run: |
           app=$(yq .name rockcraft.yaml)
           version=$(yq '(.version)' rockcraft.yaml)
-          base=$(yq '(.base|split(":"))[1]' rockcraft.yaml)
+          base=$(yq '(.base|split("@"))[1]' rockcraft.yaml)
           tag=${version}-${base}_edge
 
           sudo skopeo --insecure-policy copy \
