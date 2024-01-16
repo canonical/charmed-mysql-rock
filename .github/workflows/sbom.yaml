@@ -18,7 +18,7 @@ jobs:
       - name: Set version
         run: |
           version=$(yq '(.version|split("-"))[0]' rockcraft.yaml)
-          echo "=${version}" >> "$GITHUB_ENV"
+          echo "version=${version}" >> "$GITHUB_ENV"
       - uses: actions/download-artifact@v3
         with:
           name: charmed-mysql-rock
