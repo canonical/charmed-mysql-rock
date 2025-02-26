@@ -1,3 +1,5 @@
+# Copyright 2025 Canonical Ltd.
+# See LICENSE file for licensing details.
 name: Trivy Security Scanner
 on:
   push:
@@ -6,7 +8,7 @@ on:
   pull_request:
 
 permissions:
-  contents: read # Set the GITHUB_TOKEN permissions to read-only
+  contents: read  # Set the GITHUB_TOKEN permissions to read-only
 
 jobs:
   build:
@@ -37,7 +39,7 @@ jobs:
       - name: Import locally
         run: |
           full_version="$(cat rockcraft.yaml | yq .version)"
-          sudo rockcraft.skopeo   --insecure-policy \
+          sudo rockcraft.skopeo --insecure-policy \
               copy \
               oci-archive:charmed-mysql_${full_version}_amd64.rock \
               docker-daemon:trivy/charmed-mysql:test
@@ -55,8 +57,13 @@ jobs:
         if: always()
         with:
           sarif_file: "trivy-results.sarif"
-
-      - name: Run Trivy in GitHub SBOM mode and submit results to Dependency Graph
+  sbom:
+    name: Trivy SBOM and Dependency Upload
+    needs: scan
+    if: github.event_name == 'push'
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Run Trivy in GitHub SBOM mode and submit to Dependency Graph
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: "image"
