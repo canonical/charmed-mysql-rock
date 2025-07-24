@@ -15,15 +15,15 @@ on:
 jobs:
   build:
     name: Build rock
-    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v30.1.1
+    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v32.2.0
 
   release:
     name: Release rock
     needs:
       - build
-    uses: canonical/data-platform-workflows/.github/workflows/release_rock.yaml@v30.1.1
+    uses: canonical/data-platform-workflows/.github/workflows/release_rock.yaml@v32.2.0
     with:
       artifact-prefix: ${{ needs.build.outputs.artifact-prefix }}
     permissions:
       packages: write  # Needed to publish to GitHub Container Registry
-      contents: write  # Needed to create GitHub release
+      contents: write  # Needed to create git tags
