@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout repo
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install required dependencies
         run: |
@@ -38,11 +38,10 @@ jobs:
 
       - name: Import locally
         run: |
-          full_version="$(cat rockcraft.yaml | yq .version)"
-          sudo rockcraft.skopeo --insecure-policy \
-              copy \
-              oci-archive:charmed-mysql_${full_version}_amd64.rock \
-              docker-daemon:trivy/charmed-mysql:test
+          full_version="$(yq .version rockcraft.yaml)"
+          sudo rockcraft.skopeo --insecure-policy copy \
+              "oci-archive:charmed-mysql_${full_version}_amd64.rock" \
+              "docker-daemon:trivy/charmed-mysql:test"
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@master
