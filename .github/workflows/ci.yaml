@@ -12,15 +12,7 @@ on:
 jobs:
   lint:
     name: Lint
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Install tox
-        run: pipx install tox
-      - name: Run linters
-        run: tox run -e lint
+    uses: canonical/data-platform-workflows/.github/workflows/lint.yaml@v32.2.0
 
   check-version:
     name: Check version
@@ -33,16 +25,14 @@ jobs:
         run: sudo snap install yq
       - name: Compare versions
         run: |
-          APP=$(yq .name rockcraft.yaml)
-          ROCK_VERSION=$(yq .version rockcraft.yaml)
-          CHANNEL=$(yq ".parts.charmed-mysql.stage-snaps[0]" rockcraft.yaml \
-            | cut -c15-)
-          SNAP_VERSION=$(snap info $APP | grep $CHANNEL | awk -F ' ' \
-            '{print $2}')
-          if [ "$ROCK_VERSION" != "$SNAP_VERSION" ]; then
+          APP="$(yq .name rockcraft.yaml)"
+          ROCK_VERSION="$(yq .version rockcraft.yaml)"
+          CHANNEL="$(yq '.parts.charmed-mysql.stage-snaps[0]' rockcraft.yaml | cut -c15-)"
+          SNAP_VERSION="$(snap info "${APP}" | grep "${CHANNEL}" | awk -F ' ' '{print $2}')"
+          if [ "${ROCK_VERSION}" != "${SNAP_VERSION}" ]; then
               echo "VERSION MISMATCH DETECTED"
-              echo "Rock version: $ROCK_VERSION"
-              echo "SNAP version: $SNAP_VERSION"
+              echo "Rock version: ${ROCK_VERSION}"
+              echo "SNAP version: ${SNAP_VERSION}"
               exit 1
           fi
 
