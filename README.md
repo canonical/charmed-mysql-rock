@@ -32,8 +32,8 @@ sudo lxd init --auto
 
 ### Packing and Running the rock
 ```bash
-sudo rockcraft pack
-sudo rockcraft.skopeo --insecure-policy copy oci-archive:mysql*.rock docker-daemon:<username>/charmed-mysql:<tag>
+rockcraft pack
+rockcraft.skopeo --insecure-policy copy oci-archive:charmed-mysql*.rock docker-daemon:<username>/charmed-mysql:<tag>
 docker run --rm -it <username>/charmed-mysql:<tag>
 ```
 
