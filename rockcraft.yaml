@@ -1,11 +1,11 @@
 name: charmed-mysql
-base: ubuntu@22.04
-version: '8.0.44'
+base: ubuntu@24.04
+version: '8.4.7'
 summary: Charmed MySQL rock OCI
 description: |
     MySQL built from the official MySQL package
     from the MySQL repository and installs
-    mysql-shell.  For more information on rocks, visit
+    mysql-shell. For more information on rocks, visit
     the https://github.com/canonical/rockcraft.
 license: Apache-2.0
 platforms:
@@ -33,7 +33,7 @@ parts:
             - python3-certifi
             - python3-yaml
         stage-snaps:
-            - charmed-mysql/8.0/edge
+            - charmed-mysql/8.4/edge
         override-prime: |
             craftctl default
             mv -f $CRAFT_PRIME/etc/mysql/mysql.cnf $CRAFT_PRIME/etc/mysql/my.cnf
@@ -71,7 +71,7 @@ parts:
             mkdir -p $CRAFT_PRIME/usr/share/rocks
             echo "# os-release" > $CRAFT_PRIME/usr/share/rocks/dpkg.query
             cat \
-            ${CRAFT_PROJECT_DIR}/../bundles/ubuntu-22.04/rootfs/etc/os-release \
+            ${CRAFT_PROJECT_DIR}/../bundles/ubuntu-24.04/rootfs/etc/os-release \
             >> $CRAFT_PRIME/usr/share/rocks/dpkg.query
             echo "# dpkg-query" >> $CRAFT_PRIME/usr/share/rocks/dpkg.query
             declare -a fields

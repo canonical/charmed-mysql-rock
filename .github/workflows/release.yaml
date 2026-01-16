@@ -9,7 +9,7 @@ concurrency:
 on:
   push:
     branches:
-      - 8.0-22.04
+      - 8.4-24.04
   workflow_dispatch:
 
 jobs:
