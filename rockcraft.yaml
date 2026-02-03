@@ -22,6 +22,7 @@ parts:
             - libssh-4
             - libbrotli1
             - libexpat1
+            - libtirpc3t64
             - python3
             - ca-certificates
             - libedit2
