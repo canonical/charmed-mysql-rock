@@ -10,8 +10,7 @@ database or the system.
 
 The easiest way to report a security issue is through
 [GitHub](https://github.com/canonical/charmed-mysql-rock/security/advisories/new). See
-Privately reporting a security
-vulnerability](<https://docs.github.com/en/code-securitysecurity-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability>)
+[Privately reporting a security vulnerability](https://docs.github.com/en/code-securitysecurity-advisories/guidance-on-reporting-and-writing/privately-reporting-a-security-vulnerability)
 for instructions.
 
 The repository admins will be notified of the issue and will work with you
