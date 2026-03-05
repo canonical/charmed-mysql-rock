@@ -39,11 +39,11 @@ jobs:
           full_version="$(yq .version rockcraft.yaml)"
           sudo rockcraft.skopeo --insecure-policy copy \
               "oci-archive:charmed-mysql_${full_version}_amd64.rock" \
-              "docker-daemon:trivy/mysql:test"
+              "docker-daemon:trivy/charmed-mysql:test"
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.34.2
         with:
-          image-ref: "trivy/mysql:test"
+          image-ref: "trivy/charmed-mysql:test"
           format: "sarif"
           output: "trivy-results.sarif"
           severity: "HIGH,CRITICAL"
