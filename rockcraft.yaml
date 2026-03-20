@@ -18,15 +18,11 @@ parts:
         plugin: nil
         overlay-packages:
             - logrotate
-            - libssh-4
             - libbrotli1
-            - libicu70
-            - libevent-core-2.1-7
-            - libevent-pthreads-2.1-7
-            - libexpat1
+            - libedit2
+            - libssh-4
             - python3
             - ca-certificates
-            - libedit2
             # mysqlsh dependencies
             - python3-certifi
             - python3-yaml
