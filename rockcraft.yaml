@@ -17,14 +17,12 @@ parts:
     charmed-mysql:
         plugin: nil
         overlay-packages:
-            - util-linux
             - logrotate
             - libssh-4
             - libbrotli1
             - libicu70
             - libevent-core-2.1-7
             - libevent-pthreads-2.1-7
-            - libprotobuf-lite23
             - libexpat1
             - python3
             - ca-certificates
