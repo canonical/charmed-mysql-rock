@@ -19,11 +19,10 @@ parts:
         overlay-packages:
             - logrotate
             - libbrotli1
-            - libexpat1
+            - libedit2
             - libtirpc3t64
             - python3
             - ca-certificates
-            - libedit2
             # mysqlsh dependencies
             - python3-certifi
             - python3-yaml
