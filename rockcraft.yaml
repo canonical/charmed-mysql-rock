@@ -17,9 +17,7 @@ parts:
     charmed-mysql:
         plugin: nil
         overlay-packages:
-            - util-linux
             - logrotate
-            - libssh-4
             - libbrotli1
             - libexpat1
             - libtirpc3t64
