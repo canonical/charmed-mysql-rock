@@ -51,6 +51,7 @@ parts:
             do
                 cp /etc/skel/"$i" $CRAFT_PRIME/home/mysql
             done
+            mkdir -p $CRAFT_PRIME/var/lib/mysql
             mkdir -p $CRAFT_PRIME/var/lib/mysql-files
             mkdir -p $CRAFT_PRIME/var/run/mysqld
             mkdir -p $CRAFT_PRIME/etc/mysqlrouter
