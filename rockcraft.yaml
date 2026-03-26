@@ -17,21 +17,16 @@ parts:
     charmed-mysql:
         plugin: nil
         overlay-packages:
-            - util-linux
-            - logrotate
-            - libssh-4
             - libbrotli1
-            - libicu70
-            - libevent-core-2.1-7
-            - libevent-pthreads-2.1-7
-            - libprotobuf-lite23
-            - libexpat1
+            - libedit2
+            - libssh-4
             - python3
             - ca-certificates
-            - libedit2
             # mysqlsh dependencies
             - python3-certifi
             - python3-yaml
+        stage-packages:
+            - logrotate
         stage-snaps:
             - charmed-mysql/8.0/edge
         override-prime: |
