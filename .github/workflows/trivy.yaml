@@ -26,11 +26,11 @@ jobs:
       - name: Find rock tag
         id: rock-tag
         run: |
-          echo "tag=$(rockcraft.skopeo list-tags docker://ghcr.io/canonical/charmed-mysql | jq -r '.Tags | map(select(startswith("8.4.")))| max_by(split(".")[1] | split("-")[0] | tonumber)')" >> "$GITHUB_OUTPUT"
+          echo "tag=$(rockcraft.skopeo list-tags docker://ghcr.io/canonical/charmed-mysql | jq -r '.Tags | map(select(startswith("8.4."))) | max_by(split(".")[1] | split("-")[0] | tonumber)')" >> "$GITHUB_OUTPUT"
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@0.35.0
         with:
-          image-ref: "ghcr.io/canonical/charmed-mysql:${{steps.rock-tag.outputs.tag }}"
+          image-ref: "ghcr.io/canonical/charmed-mysql:${{ steps.rock-tag.outputs.tag }}"
           format: "sarif"
           output: "trivy-results.sarif"
       - name: Upload Trivy scan results to GitHub Security tab
