@@ -55,6 +55,8 @@ parts:
             mkdir -p $CRAFT_PRIME/var/lib/mysql-files
             mkdir -p $CRAFT_PRIME/var/run/mysqld
             mkdir -p $CRAFT_PRIME/etc/mysqlrouter
+            mkdir -p $CRAFT_PRIME/etc/promtail
+            mkdir -p $CRAFT_PRIME/opt/promtail
             mkdir -p $CRAFT_PRIME/var/lib/mysqlrouter
             mkdir -p $CRAFT_PRIME/var/log/mysqlrouter
             chown -R 584788:584788 $CRAFT_PRIME/var/lib/logrotate
@@ -63,6 +65,8 @@ parts:
             chown -R 584788:584788 $CRAFT_PRIME/etc/logrotate.d
             chown -R 584788:584788 $CRAFT_PRIME/etc/mysql
             chown -R 584788:584788 $CRAFT_PRIME/etc/mysqlrouter
+            chown -R 584788:584788 $CRAFT_PRIME/etc/promtail
+            chown -R 584788:584788 $CRAFT_PRIME/opt/promtail
             chown -R 584788:584788 $CRAFT_PRIME/var/lib/mysqlrouter
             chown -R 584788:584788 $CRAFT_PRIME/var/log/mysqlrouter
             # Generate dpkg.query
