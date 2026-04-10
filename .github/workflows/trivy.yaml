@@ -1,9 +1,9 @@
 # Copyright 2025 Canonical Ltd.
 # See LICENSE file for licensing details.
 name: Trivy Security Scanner
+
 on:
   workflow_call:
-  # Dispatched by scheduler
   workflow_dispatch:
 
 permissions:
