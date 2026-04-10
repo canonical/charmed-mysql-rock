@@ -12,7 +12,7 @@ on:
 jobs:
   lint:
     name: Lint
-    uses: canonical/data-platform-workflows/.github/workflows/lint.yaml@v32.2.0
+    uses: canonical/data-platform-workflows/.github/workflows/lint_workflows.yaml@v46.0.0
 
   check-version:
     name: Check version
@@ -38,4 +38,4 @@ jobs:
 
   build:
     name: Build rock
-    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v32.2.0
+    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v46.0.0
