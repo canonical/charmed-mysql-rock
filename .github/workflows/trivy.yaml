@@ -6,22 +6,20 @@ on:
   workflow_call:
   workflow_dispatch:
 
-permissions:
-  security-events: write  # Required for uploading Trivy SARIF results
-
 jobs:
   scan:
     name: Trivy scan
     runs-on: ubuntu-24.04
+    permissions:
+      security-events: write  # Required for uploading Trivy SARIF results
     steps:
       - name: Checkout repo
         uses: actions/checkout@v6
+        with:
+          persist-credentials: false
       - name: Install required dependencies
         run: |
-          # rockcraft
           sudo snap install rockcraft --classic --edge
-
-          # jq
           sudo snap install jq
       - name: Find rock tag
         id: rock-tag

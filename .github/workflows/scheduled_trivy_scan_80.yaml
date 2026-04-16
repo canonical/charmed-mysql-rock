@@ -1,4 +1,7 @@
+# Copyright 2026 Canonical Ltd.
+# See LICENSE file for licensing details.
 name: Trivy scheduler scan (8.0-22.04)
+
 on:
   # GitHub will only trigger workflows `on: schedule` for workflow files in the default GitHub branch
   schedule:
