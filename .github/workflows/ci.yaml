@@ -12,7 +12,7 @@ on:
 jobs:
   lint:
     name: Lint
-    uses: canonical/data-platform-workflows/.github/workflows/lint_workflows.yaml@v46.0.0
+    uses: canonical/data-platform-workflows/.github/workflows/lint_workflows.yaml@v48.1.1
 
   check-version:
     name: Check version
@@ -20,7 +20,7 @@ jobs:
     timeout-minutes: 15
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install yq
         run: sudo snap install yq
       - name: Compare versions
@@ -38,4 +38,4 @@ jobs:
 
   build:
     name: Build rock
-    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v46.0.0
+    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v48.1.1
