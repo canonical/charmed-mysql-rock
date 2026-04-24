@@ -53,14 +53,16 @@ parts:
             done
             mkdir -p $CRAFT_PRIME/var/lib/mysql
             mkdir -p $CRAFT_PRIME/var/lib/mysql-files
+            mkdir -p $CRAFT_PRIME/var/lib/rollingops
             mkdir -p $CRAFT_PRIME/var/run/mysqld
             mkdir -p $CRAFT_PRIME/etc/mysqlrouter
             mkdir -p $CRAFT_PRIME/etc/promtail
             mkdir -p $CRAFT_PRIME/opt/promtail
             mkdir -p $CRAFT_PRIME/var/lib/mysqlrouter
             mkdir -p $CRAFT_PRIME/var/log/mysqlrouter
-            chown -R 584788:584788 $CRAFT_PRIME/var/lib/logrotate
             chown -R 584788:584788 $CRAFT_PRIME/var/lib/mysql*
+            chown -R 584788:584788 $CRAFT_PRIME/var/lib/logrotate
+            chown -R 584788:584788 $CRAFT_PRIME/var/lib/rollingops
             chown -R 584788:584788 $CRAFT_PRIME/var/run/mysqld
             chown -R 584788:584788 $CRAFT_PRIME/etc/logrotate.d
             chown -R 584788:584788 $CRAFT_PRIME/etc/mysql
