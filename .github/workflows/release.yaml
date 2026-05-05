@@ -15,7 +15,7 @@ on:
 jobs:
   build:
     name: Build rock
-    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v48.1.1
+    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v49.0.1
     permissions:
       actions: read
       contents: read
@@ -24,7 +24,7 @@ jobs:
     name: Release rock
     needs:
       - build
-    uses: canonical/data-platform-workflows/.github/workflows/release_rock_edge.yaml@v48.1.1
+    uses: canonical/data-platform-workflows/.github/workflows/release_rock_edge.yaml@v49.0.1
     with:
       artifact-prefix: ${{ needs.build.outputs.artifact-prefix }}
     permissions:
