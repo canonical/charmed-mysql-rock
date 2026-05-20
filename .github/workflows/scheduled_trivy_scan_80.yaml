@@ -1,6 +1,6 @@
 # Copyright 2026 Canonical Ltd.
 # See LICENSE file for licensing details.
-name: Trivy scheduler scan (8.0-22.04)
+name: Trivy scheduler scan (8.0/edge)
 
 on:
   # GitHub will only trigger workflows `on: schedule` for workflow files in the default GitHub branch
@@ -14,7 +14,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Trigger workflow
-        run: gh workflow --repo '${{ github.repository }}' run trivy.yaml --ref '8.0-22.04'
+        run: gh workflow --repo '${{ github.repository }}' run trivy.yaml --ref '8.0/edge'
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     permissions:

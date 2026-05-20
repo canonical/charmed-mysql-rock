@@ -39,4 +39,4 @@ docker run --rm -it <username>/charmed-mysql:<tag>
 
 ## License
 The Charmed MySQL rock is free software, distributed under the Apache Software License, version 2.0.
-See [LICENSE](https://github.com/canonical/charmed-mysql-rock/blob/8.4-24.04/LICENSE)
+See [LICENSE](https://github.com/canonical/charmed-mysql-rock/blob/8.4/edge/LICENSE)
