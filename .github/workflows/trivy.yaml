@@ -9,7 +9,7 @@ on:
 jobs:
   scan:
     name: Trivy scan
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     permissions:
       security-events: write  # Required for uploading Trivy SARIF results
     steps:
