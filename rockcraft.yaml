@@ -1,5 +1,5 @@
 name: charmed-mysql
-base: ubuntu@24.04
+base: ubuntu@26.04
 version: '8.4.8'
 summary: Charmed MySQL rock OCI
 description: |
@@ -73,7 +73,7 @@ parts:
             mkdir -p $CRAFT_PRIME/usr/share/rocks
             echo "# os-release" > $CRAFT_PRIME/usr/share/rocks/dpkg.query
             cat \
-            ${CRAFT_PROJECT_DIR}/../bundles/ubuntu-24.04/rootfs/etc/os-release \
+            ${CRAFT_PROJECT_DIR}/../bundles/ubuntu-26.04/rootfs/etc/os-release \
             >> $CRAFT_PRIME/usr/share/rocks/dpkg.query
             echo "# dpkg-query" >> $CRAFT_PRIME/usr/share/rocks/dpkg.query
             declare -a fields
