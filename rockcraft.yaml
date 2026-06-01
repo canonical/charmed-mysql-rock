@@ -16,6 +16,15 @@ platforms:
 parts:
     charmed-mysql:
         plugin: nil
+        overlay-packages:
+            # mysql-client dependencies
+            - libedit2
+            # mysql-shell dependencies
+            - libbrotli1
+            - libgnutls30t64
+            - libgssapi-krb5-2
+            - python3-certifi
+            - python3-yaml
         stage-packages:
             - logrotate
         stage-snaps:
