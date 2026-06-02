@@ -22,7 +22,7 @@ parts:
             # mysql-shell dependencies
             - libbrotli1
             - libgnutls30t64
-            - libgssapi-krb5-2
+            - libtirpc3t64
             - python3-certifi
             - python3-yaml
         stage-packages:
