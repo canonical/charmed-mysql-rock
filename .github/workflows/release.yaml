@@ -9,7 +9,7 @@ concurrency:
 on:
   push:
     branches:
-      - 8.0-22.04
+      - 8.0/edge
   workflow_dispatch:
 
 jobs:
