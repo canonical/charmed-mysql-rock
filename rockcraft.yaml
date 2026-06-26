@@ -1,6 +1,6 @@
 name: charmed-mysql
 base: ubuntu@26.04
-version: '8.4.8'
+version: '8.4.10'
 summary: Charmed MySQL rock OCI
 description: |
     MySQL built from the official MySQL package
@@ -23,10 +23,10 @@ parts:
             - libbrotli1
             - libgnutls30t64
             - libtirpc3t64
-            - python3-certifi
-            - python3-yaml
         stage-packages:
             - logrotate
+            - python3-certifi
+            - python3-yaml
         stage-snaps:
             - charmed-mysql/8.4/edge
         override-prime: |
