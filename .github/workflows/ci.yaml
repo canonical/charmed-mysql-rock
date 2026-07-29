@@ -8,10 +8,6 @@ concurrency:
 
 on:
   pull_request:
-  push:
-    branches:
-      - 8.0/edge
-      - 8.4/edge
 
 jobs:
   lint:
