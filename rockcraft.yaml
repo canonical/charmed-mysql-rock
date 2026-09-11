@@ -1,6 +1,6 @@
 name: charmed-mysql
 base: ubuntu@26.04
-version: '8.4.10'
+version: '8.4.11'
 summary: Charmed MySQL rock OCI
 description: |
     MySQL built from the official MySQL package
