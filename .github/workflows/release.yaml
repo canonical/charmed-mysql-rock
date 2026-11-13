@@ -15,20 +15,18 @@ on:
 jobs:
   build:
     name: Build rock
-    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v49
+    uses: canonical/data-platform-workflows/.github/workflows/build_rock.yaml@v54
     permissions:
-      actions: read
       contents: read
 
   release:
     name: Release rock
     needs:
       - build
-    uses: canonical/data-platform-workflows/.github/workflows/release_rock_edge.yaml@v49
+    uses: canonical/data-platform-workflows/.github/workflows/release_rock_edge.yaml@v54
     with:
       artifact-prefix: ${{ needs.build.outputs.artifact-prefix }}
     permissions:
-      actions: read    # Needed for GitHub API call to get workflow version
       packages: write  # Needed to publish to GitHub Container Registry
       contents: write  # Needed to create git tags
 
@@ -36,6 +34,6 @@ jobs:
     name: Trivy Scan
     needs:
       - release
-    uses: ./.github/workflows/trivy.yaml
+    uses: $/.github/workflows/trivy.yaml
     permissions:
       security-events: write  # Required for uploading Trivy SARIF results
